@@ -1,0 +1,14 @@
+---
+- name: Ethermine Service
+  hosts: localhost
+  tasks:
+    - name: Get Process
+      shell: ps -efa | grep ethminer | grep -v grep | grep -v python3 | wc -l
+      register: ethminer
+
+    - name: Debug
+      debug: var=ethminer.stdout 
+
+    - name: Run Ethermine
+      shell: "/usr/bin/nohup /home/{{ username }}/bin/ethminer -G -P stratums://{{ eth_address }}.{{ eth_user }}@{{ eth_region }}.ethermine.org:5555 > /home/{{ username }}/ethminer-out.log 2>&1 &"
+      when: ethminer.stdout == "0"
