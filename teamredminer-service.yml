@@ -1,6 +1,6 @@
 ---
 - name: Teamredminer Service
-  hosts: localhost
+  hosts: all
   tasks:
     - name: Get Process
       shell: ps -efa | grep teamredminer | grep -v grep | wc -l
