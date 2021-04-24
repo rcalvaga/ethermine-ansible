@@ -1,0 +1,14 @@
+---
+- name: Teamredminer Service
+  hosts: localhost
+  tasks:
+    - name: Get Process
+      shell: ps -efa | grep teamredminer | grep -v grep | wc -l
+      register: teamredminer
+
+    - name: Debug
+      debug: var=teamredminer.stdout
+
+    - name: Run Teamredminer
+      shell: "/usr/bin/nohup /home/{{ username }}/bin/teamredminer -a ethash -o stratum+tcp://{{ eth_region }}.ethermine.org:5555 -u {{ eth_address }}.{{ eth_user }} -p x > /home/{{ username }}/teamredminer-out.log 2>&1 &"
+      when: teamredminer.stdout == "0"
