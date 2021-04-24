@@ -1,6 +1,6 @@
 ---
 - name: Ethermine Service
-  hosts: localhost
+  hosts: all
   tasks:
     - name: Get Process
       shell: ps -efa | grep ethminer | grep -v grep | grep -v python3 | wc -l
