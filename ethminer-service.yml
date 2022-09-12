@@ -1,5 +1,5 @@
 ---
-- name: Ethermine Service
+- name: Ethermine ETC Service
   hosts: all
   tasks:
     - name: Get Process
@@ -10,5 +10,5 @@
       debug: var=ethminer.stdout 
 
     - name: Run Ethermine
-      shell: "/usr/bin/nohup /home/{{ username }}/bin/ethminer -G -P stratums://{{ eth_address }}.{{ eth_user }}@{{ eth_region }}.ethermine.org:5555 > /home/{{ username }}/ethminer-out.log 2>&1 &"
+      shell: "/usr/bin/nohup /home/{{ username }}/bin/ethminer -G -P stratums://{{ etc_address }}.{{ etc_user }}@{{ etc_region }}-etc.ethermine.org:5555 > /home/{{ username }}/ethminer-out.log 2>&1 &"
       when: ethminer.stdout == "0"
