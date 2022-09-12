@@ -2,13 +2,13 @@
 - name: Ethermine ETC Service
   hosts: all
   tasks:
-    - name: Get Process
+    - name: Get ETC Process
       shell: ps -efa | grep ethminer | grep -v grep | grep -v python3 | wc -l
       register: ethminer
 
-    - name: Debug
+    - name: Debug 
       debug: var=ethminer.stdout 
 
-    - name: Run Ethermine
+    - name: Run Ethermine for ETC Mining
       shell: "/usr/bin/nohup /home/{{ username }}/bin/ethminer -G -P stratums://{{ etc_address }}.{{ etc_user }}@{{ etc_region }}-etc.ethermine.org:5555 > /home/{{ username }}/ethminer-out.log 2>&1 &"
       when: ethminer.stdout == "0"
