@@ -1,0 +1,14 @@
+---
+- name: lolMiner ETC Service
+  hosts: all
+  tasks:
+    - name: Get lolMiner ETC Process
+      shell: ps -efa | grep lolMiner | grep -v grep | grep -v python3 | wc -l
+      register: lolMiner
+
+    - name: Debug 
+      debug: var=lolMiner.stdout 
+
+    - name: Run lolMiner for ETC Mining
+      shell: "/usr/bin/nohup /home/{{ username }}/bin/lolMiner/lolMiner --coin ETC --pool {{ etc_region }}-etc.ethermine.org:{{ etc_port }} --user {{ etc_address }}.{{ etc_user }} > /home/{{ username }}/lolMiner-out.log 2>&1 &"
+      when: lolMiner.stdout == "0"
